@@ -51,4 +51,5 @@ jobs:
         python manage.py migrate
     - name: Run Tests
       run: |
+        cd TestProject/
         python manage.py test
