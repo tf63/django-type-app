@@ -1,0 +1,54 @@
+version: '3.3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: containers/django/Dockerfile
+    tty: true
+    volumes:
+      - .:/work
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    # コンテナ内の環境変数を.envを使って設定
+    env_file:
+      - .env
+
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    # コンテナ内の環境変数を.envを使って設定
+    env_file:
+      - .env
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+      - 8888:80
+    volumes:
+      - pgadmin4_data:/var/lib/pgadmin
+    depends_on:
+      - db
+    # コンテナ内の環境変数を.envを使って設定
+    env_file:
+      - .env
+  # front:
+  #   build:
+  #     context: .
+  #     dockerfile: containers/react/Dockerfile
+  #   restart: always
+  #   volumes:
+  #     - ./node:/usr/src/app:cached
+  #   command: sh -c "cd KawakeraProject && yarn start"
+  #   ports:
+  #     - "3000:3000"
+
+
+volumes:
+  postgres_data:
+  pgadmin4_data:
