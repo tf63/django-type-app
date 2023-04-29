@@ -29,4 +29,5 @@ jobs:
       env:
         DJANGO_SECRET_KEY: django-insecure-trjuc577wc%8n3vy=(0$((4tlt(qmxn7072lyh
       run: |
-        python TestProject/manage.py test
+        cd TestProject/
+        python manage.py test
