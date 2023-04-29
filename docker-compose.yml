@@ -9,7 +9,7 @@ services:
     volumes:
       - .:/work
     ports:
-      - 8000:8000
+      - 8001:8001
     depends_on:
       - db
     # コンテナ内の環境変数を.envを使って設定
