@@ -34,5 +34,5 @@ ENV PATH="$PATH:/home/user/.local/bin"
 COPY requirements.txt /work
 
 # コンテナ内でpipをアップグレードした後、pip install -r requirements.txtを実行
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
