@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Typing Game</title>
+</head>
+<body>
+    <h1>Typing Game</h1>
+    <p>Time left: <span id="time_left"></span></p>
+    <p>Current word: <span id="current_word"></span></p>
+    <input id="input_word" type="text" />
+    <button id="submit_button">Submit</button>
+    <p id="result"></p>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: '/start_game/',
+            success: function(data) {
+                $('#current_word').text(data.word);
+                var timeLeft = data.time_limit;
+                $('#time_left').text(timeLeft);
+                var intervalId = setInterval(function() {
+                    timeLeft--;
+                    $('#time_left').text(timeLeft);
+                    if (timeLeft === 0) {
+                        clearInterval(intervalId);
+                        $('#submit_button').prop('disabled', true);
+                    }
+                }, 1000);
+                $('#submit_button').click(function() {
+                    var inputWord = $('#input_word').val();
+                    if (inputWord === data.word) {
+                        $('#result').text('Correct!');
+                    } else {
+                        $('#result').text('Incorrect...');
+                    }
+                });
+            }
+        });
+    });
+</script>
+</html>
