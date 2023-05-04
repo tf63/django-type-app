@@ -29,14 +29,17 @@
 </head>
 <body>
     <div class="container">
-        <h1>Typing Game</h1>
-        <div id="target_box">
-            <span id='pressed'></span><span id="target"></span>
-        </div>
-        <p>Time left: <span id="time_left"></span></p>
-        <p id="result">input: <span id="result_text"></span></p>
-        <p>correct: <span id="correct">0</span>, 
+        <div class="top-container">
+            <h1>Typing Game</h1>
+            <p class="text">correct: <span id="correct">0</span>, 
             incorrect: <span id="incorrect">0</span></p>
+        </div>
+        <div id="target_box">
+            <ul id="target_list"></ul>
+            {% comment %} <span id='pressed'></span><span id="target"></span> {% endcomment %}
+        </div>
+        <p class="text-line">Time left: <span id="time_left"></span></p>
+        <p id="result" class="text-line">input: <span id="result_text"></span></p>
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
