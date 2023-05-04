@@ -1,42 +1,44 @@
+{% comment %} <!DOCTYPE html>
 <html>
 <head>
     <title>Typing Game</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/a.css' %}">
 </head>
 <body>
     <h1>Typing Game</h1>
     <p>Time left: <span id="time_left"></span></p>
-    <p>Current word: <span id="current_word"></span></p>
-    <input id="input_word" type="text" />
-    <button id="submit_button">Submit</button>
-    <p id="result"></p>
+    <p>Current word</p>
+    <div id="target_box">
+        <span id="target"></span>
+    </div>
+    <p id="result">input: <span id="result_text"></span></p>
+    <p>correct: <span id="correct">0</span>, 
+        incorrect: <span id="incorrect">0</span></p>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            url: '/start_game/',
-            success: function(data) {
-                $('#current_word').text(data.word);
-                var timeLeft = data.time_limit;
-                $('#time_left').text(timeLeft);
-                var intervalId = setInterval(function() {
-                    timeLeft--;
-                    $('#time_left').text(timeLeft);
-                    if (timeLeft === 0) {
-                        clearInterval(intervalId);
-                        $('#submit_button').prop('disabled', true);
-                    }
-                }, 1000);
-                $('#submit_button').click(function() {
-                    var inputWord = $('#input_word').val();
-                    if (inputWord === data.word) {
-                        $('#result').text('Correct!');
-                    } else {
-                        $('#result').text('Incorrect...');
-                    }
-                });
-            }
-        });
-    });
-</script>
+<script src="{% static 'js/type.js' %}"></script>
+</html> {% endcomment %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/game.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Typing Game</h1>
+        <div id="target_box">
+            <span id='pressed'></span><span id="target"></span>
+        </div>
+        <p>Time left: <span id="time_left"></span></p>
+        <p id="result">input: <span id="result_text"></span></p>
+        <p>correct: <span id="correct">0</span>, 
+            incorrect: <span id="incorrect">0</span></p>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'js/type.js' %}"></script>
 </html>
