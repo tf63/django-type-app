@@ -83,7 +83,7 @@ $(document).ready(async function () {
             console.log("prevent default");
         }
 
-        // 一部キーはエスケープする
+        // 一部のキーはエスケープする
         if (key == "Shift" || key == "Control" || key == "CapsLock" || key == "Meta" || key == "Alt") {
             return false;
         }
@@ -93,39 +93,48 @@ $(document).ready(async function () {
             key = key.toUpperCase();
         }
 
+        // 正誤判定
+        // ----------------------------------------------------------------
         if (index != sentence.length) {
+            // まだ行末に達していなかったら
 
             if (key == sentence.charAt(index)) {
+                // 入力が合っていたら
                 index++;
                 setCaret(sentence, index, index_line);
 
                 $('#result').text('Correct!');
                 $('#correct').text(index);
             } else {
+                // 入力が間違っていたら
                 incorrect++;
                 $('#result').text('Incorrect...');
                 $('#incorrect').text(incorrect);
             }
 
+            if (index == sentence.length && index_line == num_lines - 1) {
+                console.log("complete !");
+                window.location.href = '/result/';
+            }
         } else {
+            // 行末に達していたら
+
             if (key == "Enter") {
+                // Enterが押されたら次の行へ移動
                 $(`#target_text${index_line}`).html("");
                 index_line++;
                 $('#result').text('complete line');
+
+                // sentenceを初期化
                 sentence = words[index_line];
                 index = 0;
                 setCaret(sentence, index, index_line);
             } else {
+                // Enter以外のキーが押されたらミスとする
                 incorrect++;
                 $('#result').text('Incorrect...');
                 $('#incorrect').text(incorrect);
             }
-        }
-
-
-        if (index_line == num_lines) {
-            $('#result').text('complete !!!')
-            // エラー処理
         }
     })
 });

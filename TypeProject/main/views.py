@@ -17,3 +17,7 @@ def profile(request):
 
 def select(request):
     return render(request, "select.html")
+
+
+def result(request):
+    return render(request, "result.html")
