@@ -1,15 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container">
-        <div id="target_box" class="board">
-            <ul id="target_list"></ul>
-            {% comment %} <span id='pressed'></span><span id="target"></span> {% endcomment %}
-        </div>
-        <p class="text-line">Time left: <span id="time_left"></span></p>
-        <p id="result" class="text-line">input: <span id="result_text"></span></p>
-        <p class="text-line">correct: <span id="correct">0</span>, 
-        incorrect: <span id="incorrect">0</span></p>
-    </div>
+<div id="target_box" class="card">
+    <ul id="target_list"></ul>
+    {% comment %} <span id='pressed'></span><span id="target"></span> {% endcomment %}
+</div>
+<p class="text-line">Time left: <span id="time_left"></span></p>
+<p id="result" class="text-line">input: <span id="result_text"></span></p>
+<p class="text-line">correct: <span id="correct">0</span>, 
+incorrect: <span id="incorrect">0</span></p>
 
 {% load static %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
