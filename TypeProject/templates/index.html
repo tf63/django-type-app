@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<a href="{% url 'main:select' %}" class="link">
+    <div class="card">Select</div>
+</a>
+<a href="{% url 'main:profile' %}" class="link">
+    <div class="card">Profile</div>
+</a>
+{% endblock %}

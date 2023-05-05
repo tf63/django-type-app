@@ -26,7 +26,7 @@ $(document).ready(async function () {
 
     // api
     const response = await $.ajax({
-        url: '/start_game/',
+        url: '/api/code/',
     });
 
     // inputs
@@ -64,21 +64,30 @@ $(document).ready(async function () {
     // catch keydown
     $(document).on("keydown", function (event) {
 
-        // タブキーが押された場合、デフォルトの動作をキャンセルする
-        if (event.keyCode == "9") {
-            event.preventDefault();
-        }
+        // // タブキーが押された場合、デフォルトの動作をキャンセルする
+        // if (event.keyCode == "9") {
+        //     event.preventDefault();
+        // }
 
-        // タブキーが押された場合、デフォルトの動作をキャンセルする
-        if (event.keyCode == "32") {
-            event.preventDefault();
-        }
+        // // タブキーが押された場合、デフォルトの動作をキャンセルする
+        // if (event.keyCode == "32") {
+        //     event.preventDefault();
+        // }
 
         let key = event.key;
         console.log(`キー ${key} が押されました`);
-        if (event.keyCode === 32) { // スペースキーが押された場合
-            console.log('Space key pressed!');
+
+        // ブラウザの動作があるキーを無効化する
+        if (key == "Tab" || key == " ") {
+            event.preventDefault();
+            console.log("prevent default");
         }
+
+        // 一部キーはエスケープする
+        if (key == "Shift" || key == "Control" || key == "CapsLock" || key == "Meta" || key == "Alt") {
+            return false;
+        }
+
         // shiftキーが押されている場合、文字列を大文字に変換する
         if (event.shiftKey) {
             key = key.toUpperCase();
