@@ -9,6 +9,7 @@ class TestURLs(TestCase):
         self.game_url = reverse("main:game")
         self.profile_url = reverse("main:profile")
         self.select_url = reverse("main:select")
+        self.result_url = reverse("main:result")
 
     def test_index_url(self):
         response = self.client.get(self.index_url)
@@ -31,3 +32,8 @@ class TestURLs(TestCase):
         response = self.client.get(self.select_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "select.html")
+
+    def test_result_url(self):
+        response = self.client.get(self.result_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "result.html")
