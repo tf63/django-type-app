@@ -10,24 +10,13 @@ def start_game(request):
 
     # word = "".join([choice(ascii_lowercase) for i in range(50)])
     # word = "aiueo kakikukeko sasisuseso tatituteto naninuneno hahihuheho mamimumemo yayuyo rarirurero wawon"
-    word = """class BankAccount:
-    def __init__(self, name, balance=0):
+    word = """class Person:
+    def __init__(self, name, age):
         self.name = name
-        self.balance = balance
+        self.age = age
     
-    def deposit(self, amount):
-        self.balance += amount
-        print(f"{self.name}さんの口座に{amount}円を預けました。残高は{self.balance}円です。")
-    
-    def withdraw(self, amount):
-        if self.balance >= amount:
-            self.balance -= amount
-            print(f"{self.name}さんの口座から{amount}円を引き出しました。残高は{self.balance}円です。")
-        else:
-            print(f"残高不足です。{self.name}さんの口座には{self.balance}円しかありません。")
-    
-    def check_balance(self):
-        print(f"{self.name}さんの残高は{self.balance}円です。")"""
+    def introduce(self):
+        print(f"My name is {self.name} and I am {self.age} years old.")"""
 
     words = []
     tab_counts = []
