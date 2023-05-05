@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from TypeApp.models import Game
+from main.models import Game
 from random import choice
 from string import ascii_lowercase
 
 
-def start_game(request):
+def api_code(request):
     # wordsとtab_countsの長さが同じとなるようにする
 
     # word = "".join([choice(ascii_lowercase) for i in range(50)])
@@ -38,7 +38,3 @@ def start_game(request):
         "time_limit": time_limit,
     }
     return JsonResponse(data)
-
-
-def play_game(request):
-    return render(request, "game.html")
