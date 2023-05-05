@@ -1,13 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<a href="{% url 'main:game' %}" class="link">
+<a href="{% url 'main:select' %}" class="link">
     <div class="card">Select</div>
 </a>
-<div class="card">Profile</div>
-<div class="card">Neumorphism</div>
-<div class="card">Neumorphism</div>
-<div class="card">Neumorphism</div>
-<div class="card">Neumorphism</div>
-<div class="card">Neumorphism</div>
-<div class="card">Neumorphism</div>
+<a href="{% url 'main:profile' %}" class="link">
+    <div class="card">Profile</div>
+</a>
 {% endblock %}

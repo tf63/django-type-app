@@ -23,7 +23,7 @@ body {
 }
 
 .navigation h1 {
-    color: #444;
+    color: #888888;
     font-size: 2em;
     margin: 20px 20px auto;
     text-align: left;
@@ -42,7 +42,8 @@ body {
 }
 
 .navigation a {
-    color: #333;
+    color: #888888;
+    text-shadow: 1px 1px #eee;
     font-size: 16px;
     text-decoration: none;
 }
@@ -59,21 +60,23 @@ Result Skip Results Iframe EDIT ON body {
 .card {
     padding: 2em;
     margin: 60px 10px;
-    background: #efefef;
+    /* background: #efefef; */
+    background: linear-gradient(296.6deg, #BAFFDE 4.36%, #E9FFBB 94.25%);
     border: none;
     border-radius: .5rem;
-    color: #444;
+    color: #888888;
     font-size: 1rem;
-    font-weight: 700;
     letter-spacing: .2rem;
     text-align: center;
     outline: none;
     cursor: pointer;
     transition: .2s ease-in-out;
-    box-shadow: -6px -6px 14px rgba(255, 255, 255, .7),
+    /* box-shadow: -6px -6px 14px rgba(255, 255, 255, .7),
         -6px -6px 10px rgba(255, 255, 255, .5),
         6px 6px 8px rgba(255, 255, 255, .075),
-        6px 6px 10px rgba(0, 0, 0, .15);
+        6px 6px 10px rgba(0, 0, 0, .15); */
+
+    box-shadow: -4px -4px 10px #FFFFFF, 4px 4px 10px rgba(102, 102, 102, 0.3);
 }
 
 .board {
@@ -82,9 +85,8 @@ Result Skip Results Iframe EDIT ON body {
     background: #efefef;
     border: none;
     border-radius: .5rem;
-    color: #444;
+    color: #888888;
     font-size: 1rem;
-    font-weight: 700;
     letter-spacing: .2rem;
     text-align: left;
     text-shadow: 1px 1px #eee;
@@ -132,11 +134,11 @@ Result Skip Results Iframe EDIT ON body {
 #incorrect {
     font-size: 1em;
     font-weight: bold;
-    color: #444;
+    color: #888888;
 }
 
 h1 {
-    color: #444;
+    color: #888888;
     font-size: 3em;
     margin: 20px 20px auto;
     max-width: 600px;
@@ -146,7 +148,7 @@ h1 {
 
 /* 段落テキスト */
 .text {
-    color: #444;
+    color: #888888;
     font-size: 1.5em;
     margin: auto 20px 0px auto;
     padding-bottom: 10px;
@@ -155,7 +157,7 @@ h1 {
 }
 
 .text-line {
-    color: #444;
+    color: #888888;
     font-size: 1.5em;
     margin: 20px 20px auto;
     max-width: 600px;

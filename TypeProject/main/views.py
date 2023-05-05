@@ -9,3 +9,11 @@ def index(request):
 
 def game(request):
     return render(request, "game.html")
+
+
+def profile(request):
+    return render(request, "profile.html")
+
+
+def select(request):
+    return render(request, "select.html")
