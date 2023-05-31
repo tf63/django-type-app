@@ -1,11 +1,11 @@
 FROM python:3.8
 ENV PYTHONUNBUFFERED 1
 
-# コンテナのワークディレクトリを/workに指定
-WORKDIR /work
+# コンテナのワークディレクトリを/appに指定
+WORKDIR /app
 
 # ソースコードをコンテナにコピー
-COPY . /work
+# COPY . /app
 COPY ./containers/django/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
@@ -30,9 +30,11 @@ USER $USERNAME
 # pathを通す
 ENV PATH="$PATH:/home/user/.local/bin"
 
-# ローカルのrequirements.txtをコンテナの/codeフォルダ直下に置く
-COPY requirements.txt /work
+# ローカルのrequirements.txtをコンテナの/appフォルダ直下に置く
+COPY containers/django/requirements.txt /app
 
 # コンテナ内でpipをアップグレードした後、pip install -r requirements.txtを実行
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
+
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]

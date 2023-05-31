@@ -2,11 +2,10 @@ import React from 'react'
 import Card from './Card'
 import LinkCard from './LinkCard'
 
-function Home() {
+function Select() {
     return (
         <div>
-            <LinkCard content="About" link="/about" />
-            <LinkCard content="Select" link="/select" />
+            <LinkCard content="Game" link="/game" />
             <Card content="Card" />
             <Card content="Card" />
             <Card content="Card" />
@@ -15,4 +14,4 @@ function Home() {
     )
 }
 
-export default Home
+export default Select
