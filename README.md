@@ -49,3 +49,9 @@
 - AWS
 - Figma
 - DB周りのこと
+
+### react導入
+https://qiita.com/shiranon/items/b3efd3ed7ce473c6ad83
+```
+docker-compose run --rm react sh -c "npm install -g create-react-app && create-react-app django_front"
+```
