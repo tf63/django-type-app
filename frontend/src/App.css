@@ -166,9 +166,18 @@ h1 {
   list-style-type: none;
 }
 
-.pressed {
+.typed {
   display: inline-block;
   color: #afafaf;
+}
+
+.untyped {
+  display: inline-block;
+  color: #888888;
+}
+
+.target_block {
+  letter-spacing: .1rem;
 }
 
 .caret {

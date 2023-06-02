@@ -19,13 +19,10 @@ function Nav() {
                     <Link to="/game">Game</Link>
                 </li>
                 <li>
-                    <Link to="/input">Input</Link>
+                    <Link to="/tutorial">Tutorial</Link>
                 </li>
                 <li>
-                    <Link to="/card">Card</Link>
-                </li>
-                <li>
-                    <Link to="/tail">Tail</Link>
+                    <Link to="/material">Material</Link>
                 </li>
             </ul>
         </nav>

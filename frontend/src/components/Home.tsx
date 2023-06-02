@@ -7,6 +7,7 @@ function Home() {
         <div>
             <LinkCard content="About" link="/about" />
             <LinkCard content="Select" link="/select" />
+            <LinkCard content="Game" link="/game" />
             <Card content="Card" />
             <Card content="Card" />
             <Card content="Card" />

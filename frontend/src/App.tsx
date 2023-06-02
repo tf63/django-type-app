@@ -5,12 +5,15 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Home from './components/Home'
 import About from './components/About'
 import Card from './components/Card'
-import Greeting from './components/Greeting'
-import Game from './components/Tutorial/Game'
+import Game from './components/Game'
+import Greeting from './components/Tutorial/Greeting'
 import Nav from './components/Nav'
-import InputComponent from './components/Type/Type'
+import InputComponent from './components/Tutorial/Input'
 import './App.css'
 import Select from './components/Select'
+import TicTacToe from './components/Tutorial/TicTacToe'
+import Tutorial from './components/Tutorial'
+import Material from './components/Material'
 
 function App() {
     return (
@@ -22,8 +25,11 @@ function App() {
                 <Route path="/select" element={<Select />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/game" element={<Game />} />
+                <Route path="/material" element={<Material />} />
+                <Route path="/tutorial" element={<Tutorial />} />
+                <Route path="/tictactoe" element={<TicTacToe />} />
+                <Route path="/greeting" element={<Greeting name="AAAAA" />} />
                 <Route path="/input" element={<InputComponent />} />
-                <Route path="/card" element={<Card content="Card" />} />
             </Routes>
         </Router>
     )
