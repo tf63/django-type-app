@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const InputComponent: React.FC = () => {
+const Input: React.FC = () => {
     const [inputValue, setInputValue] = useState('')
 
     useEffect(() => {
@@ -26,4 +26,4 @@ const InputComponent: React.FC = () => {
     )
 }
 
-export default InputComponent
+export default Input

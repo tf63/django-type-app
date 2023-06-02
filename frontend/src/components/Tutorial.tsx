@@ -7,6 +7,8 @@ function Tutorial() {
             <LinkCard link={'/input'} content={'Input'} />
             <LinkCard link={'/tictactoe'} content={'TicTacToe'} />
             <LinkCard link={'/greeting'} content={'Greeting'} />
+            <LinkCard link={'/counter'} content={'Counter'} />
+            <LinkCard link={'/timer'} content={'Timer'} />
         </div>
     )
 }

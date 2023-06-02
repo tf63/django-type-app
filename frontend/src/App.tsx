@@ -8,12 +8,14 @@ import Card from './components/Card'
 import Game from './components/Game'
 import Greeting from './components/Tutorial/Greeting'
 import Nav from './components/Nav'
-import InputComponent from './components/Tutorial/Input'
+import Input from './components/Tutorial/Input'
 import './App.css'
 import Select from './components/Select'
 import TicTacToe from './components/Tutorial/TicTacToe'
 import Tutorial from './components/Tutorial'
 import Material from './components/Material'
+import Counter from './components/Tutorial/Counter'
+import Timer from './components/Tutorial/Timer'
 
 function App() {
     return (
@@ -21,15 +23,19 @@ function App() {
             <Nav />
 
             <Routes>
+                {/* Nav */}
                 <Route path="/" element={<Home />} />
-                <Route path="/select" element={<Select />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/game" element={<Game />} />
                 <Route path="/material" element={<Material />} />
                 <Route path="/tutorial" element={<Tutorial />} />
+                <Route path="/select" element={<Select />} />
+                {/* Tutorials */}
                 <Route path="/tictactoe" element={<TicTacToe />} />
+                <Route path="/counter" element={<Counter initialValue={0} />} />
                 <Route path="/greeting" element={<Greeting name="AAAAA" />} />
-                <Route path="/input" element={<InputComponent />} />
+                <Route path="/input" element={<Input />} />
+                <Route path="/timer" element={<Timer />} />
             </Routes>
         </Router>
     )
