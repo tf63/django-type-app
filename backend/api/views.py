@@ -38,3 +38,7 @@ def api_code(request):
         "time_limit": time_limit,
     }
     return JsonResponse(data)
+
+
+def index(request):
+    return render(request, "index.html")
