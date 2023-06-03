@@ -4,11 +4,11 @@ import LinkCard from './LinkCard'
 function Tutorial() {
     return (
         <div>
-            <LinkCard link={'/input'} content={'Input'} />
-            <LinkCard link={'/tictactoe'} content={'TicTacToe'} />
-            <LinkCard link={'/greeting'} content={'Greeting'} />
-            <LinkCard link={'/counter'} content={'Counter'} />
-            <LinkCard link={'/timer'} content={'Timer'} />
+            <LinkCard link={'/input'} content={'Input'} color="Green" />
+            <LinkCard link={'/tictactoe'} content={'TicTacToe'} color="Green" />
+            <LinkCard link={'/greeting'} content={'Greeting'} color="Green" />
+            <LinkCard link={'/counter'} content={'Counter'} color="Green" />
+            <LinkCard link={'/timer'} content={'Timer'} color="Green" />
         </div>
     )
 }

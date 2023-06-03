@@ -55,6 +55,22 @@
 - Figma
 - DB 周りのこと
 
+### Docker
+コンテナの起動
+```
+  docker compose up -d
+```
+
+コンテナの削除
+```
+  docker compose down
+```
+
+コンテナのリビルド
+```
+  docker compose up -d --build
+```
+
 ### Django (Backend)
 プロジェクトの作成
 ```

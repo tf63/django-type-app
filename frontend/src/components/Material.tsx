@@ -6,7 +6,8 @@ function Material() {
     return (
         <div>
             <Card content="Card" />
-            <LinkCard content="LinkCard" link="/material" />
+            <LinkCard content="LinkCard" link="/material" color="Green" />
+            <LinkCard content="LinkCard" link="/material" color="Blue" />
         </div>
     )
 }

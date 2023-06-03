@@ -31,12 +31,15 @@ def api_code(request):
         tab_counts.append(tab_count)
 
     time_limit = 60
+
     data = {
         "word": word,
         "words": words,
         "tab_counts": tab_counts,
         "time_limit": time_limit,
     }
+    data["Access-Control-Allow-Origin"] = "http://localhost:5173"
+
     return JsonResponse(data)
 
 
