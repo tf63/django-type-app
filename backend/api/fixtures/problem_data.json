@@ -1,0 +1,29 @@
+[
+    {
+        "model": "api.problem",
+        "pk": 1,
+        "fields": {
+            "language": "Python",
+            "length": "short",
+            "text": "Sample text 1"
+        }
+    },
+    {
+        "model": "api.problem",
+        "pk": 2,
+        "fields": {
+            "language": "Java",
+            "length": "medium",
+            "text": "Sample text 2"
+        }
+    },
+    {
+        "model": "api.problem",
+        "pk": 3,
+        "fields": {
+            "language": "JavaScript",
+            "length": "long",
+            "text": "Sample text 3"
+        }
+    }
+]

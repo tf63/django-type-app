@@ -1,8 +1,52 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from api.models import Game
 from random import choice
 from string import ascii_lowercase
+
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import Problem
+from .serializers import ProblemSerializer
+
+class ProblemAPIView(APIView):
+    def get(self, request):
+        try:
+            lang = request.GET.get('lang')
+            length = request.GET.get('length')
+            queryset = Problem.objects.all()
+
+            if lang:
+                queryset = queryset.filter(language=lang)
+            
+            if length:
+                queryset = queryset.filter(length=length)
+
+            serializer = ProblemSerializer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class InfoAPIView(APIView):
+    def get(self, request):
+        try:
+            lang = request.GET.get('lang')
+            length = request.GET.get('length')
+            queryset = Problem.objects.all()
+
+            if lang:
+                queryset = queryset.filter(language=lang)
+            
+            if length:
+                queryset = queryset.filter(length=length)
+
+            serializer = ProblemSerializer(queryset, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 def api_code(request):

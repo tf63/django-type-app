@@ -1,7 +1,14 @@
 from django.db import models
 
 
-class Game(models.Model):
-    word = models.CharField(max_length=1000)
-    time_limit = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
+
+class Problem(models.Model):
+    LENGTH_CHOICES = (
+        ('short', 'Short'),
+        ('medium', 'Medium'),
+        ('long', 'Long'),
+    )
+
+    language = models.CharField(max_length=100)
+    length = models.CharField(max_length=10, choices=LENGTH_CHOICES)
+    text = models.TextField(max_length=2000)

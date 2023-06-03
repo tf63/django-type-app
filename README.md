@@ -110,3 +110,9 @@ react-router-dom
 ```
     npm i react-router-dom
 ```
+
+### 参考
+- React (TypeScript) チュートリアル
+https://zenn.dev/roiban/articles/473f9cbf2b793a
+
+https://react.dev/learn/tutorial-tic-tac-toe#setup-for-the-tutorial
