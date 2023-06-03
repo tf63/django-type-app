@@ -30,6 +30,24 @@ function setTimer(timeLeft: number) {
     return timer
 }
 
+const Caret: React.FC = () => (
+    <div>
+        <span className="caret"></span>
+    </div>
+)
+
+const TargetLine: React.FC = () => {
+    return (
+        <div>
+            <Caret />
+        </div>
+    )
+}
+
+const TargetBlock: React.FC = () => {
+    return <div></div>
+}
+
 const System: React.FC = () => {
     const [word, setWord] = useState('')
     const [words, setWords] = useState<string[]>([])
@@ -42,6 +60,7 @@ const System: React.FC = () => {
     const [incorrect, setIncorrect] = useState(0)
     const [sentence, setSentence] = useState('')
     const [result, setResult] = useState('')
+    const [lines, setLines] = useState<string[]>([])
 
     useEffect(() => {
         // HTMLがロードされたら
@@ -73,6 +92,7 @@ const System: React.FC = () => {
             </li>
         )
     })
+
     useEffect(() => {
         // set indent
         for (let i = 0; i < numLines; i++) {
@@ -151,13 +171,18 @@ const System: React.FC = () => {
     }
 
     return (
-        <div>
-            <div id="time_left">{setTimer(timeLeft)}</div>
-            <ul id="target_list">{targetItems}</ul>
-            <div id="result"></div>
-            <div id="correct"></div>
-            <div id="incorrect"></div>
-            <textarea onKeyDown={handleKeyDown}></textarea>
+        <div onKeyDown={handleKeyDown}>
+            <div id="target_box" className="card">
+                <ul id="target_list">{targetItems}</ul>
+            </div>
+            <p className="text-line">Time left: {setTimer(timeLeft)}</p>
+            <p id="result" className="text-line">
+                input: {result}
+            </p>
+            <p className="text-line">
+                correct: {correct}, incorrect: {incorrect}
+            </p>
+            {/* <textarea onKeyDown={handleKeyDown}></textarea> */}
         </div>
     )
 }

@@ -5,7 +5,7 @@ from django.urls import reverse
 class TestURLs(TestCase):
     def setUp(self):
         self.client = Client()
-        self.code_url = reverse("api:code")
+        self.code_url = reverse("api:problem")
 
     def test_index_url(self):
         response = self.client.get(self.code_url)
