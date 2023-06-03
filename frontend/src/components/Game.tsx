@@ -113,7 +113,7 @@ function Game() {
     useEffect(() => {
         async function fetchData() {
             // api
-            const response = await fetch('http://localhost:8000/api/code')
+            const response = await fetch('http://localhost:8000/api/problem')
             const data = await response.json()
 
             // inputs

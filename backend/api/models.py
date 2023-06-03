@@ -1,14 +1,39 @@
 from django.db import models
-
+from django.contrib.postgres.fields import ArrayField
 
 
 class Problem(models.Model):
-    LENGTH_CHOICES = (
-        ('short', 'Short'),
-        ('medium', 'Medium'),
-        ('long', 'Long'),
+    LANGUAGE_CHOICES = (
+        ('python', 'Python'),
+        ('java', 'Java'),
+        ('javascript', 'JavaScript'),
+        ('c', 'C'),
+        ('cpp', 'C++'),
+        ('csharp', 'C#'),
+        ('php', 'PHP'),
+        ('ruby', 'Ruby'),
+        ('go', 'Go'),
+        ('swift', 'Swift'),
+        ('kotlin', 'Kotlin'),
+        ('rust', 'Rust'),
+        ('typescript', 'TypeScript'),
+        ('html', 'HTML'),
+        ('css', 'CSS'),
+        ('sql', 'SQL'),
+        ('bash', 'Bash'),
+        ('powershell', 'PowerShell'),
     )
 
-    language = models.CharField(max_length=100)
+    LENGTH_CHOICES = (
+        ('short', 'short'),
+        ('medium', 'medium'),
+        ('long', 'long'),
+    )
+
+    language = models.CharField(max_length=100, choices=LANGUAGE_CHOICES)
     length = models.CharField(max_length=10, choices=LENGTH_CHOICES)
-    text = models.TextField(max_length=2000)
+    words = ArrayField(models.CharField(max_length=200))
+    tab_counts = ArrayField(models.IntegerField())
+
+    def __str__(self):
+        return f"Problem {self.pk}, Lang: {self.language}, length: {self.length}"
