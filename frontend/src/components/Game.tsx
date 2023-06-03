@@ -1,7 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import Card from './Card'
-import { useSearchParams } from 'react-router-dom'
 
 const Caret: React.FC = () => <span className="caret"></span>
 
@@ -31,9 +30,9 @@ const TargetItem: React.FC<TargetItemProps> = ({ index, item }) => {
 
     return (
         <li className="target_item">
-            <span className="typed">{item.substring(0, state.index)}</span>
+            <span className="typed">{item.substring(0, state.index).replace(/ /g, '\u00A0')}</span>
             <Caret />
-            <span className="untyped">{item.substring(state.index)}</span>
+            <span className="untyped">{item.substring(state.index).replace(/ /g, '\u00A0')}</span>
         </li>
     )
 }
