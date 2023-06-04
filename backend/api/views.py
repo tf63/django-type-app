@@ -12,7 +12,7 @@ from .serializers import ProblemSerializer
 class ProblemAPIView(APIView):
     def get(self, request):
         try:
-            lang = request.GET.get('lang')
+            lang = request.GET.get('language')
             length = request.GET.get('length')
             queryset = Problem.objects.all()
 
@@ -32,7 +32,7 @@ class ProblemAPIView(APIView):
 class InfoAPIView(APIView):
     def get(self, request):
         try:
-            lang = request.GET.get('lang')
+            lang = request.GET.get('language')
             length = request.GET.get('length')
             queryset = Problem.objects.all()
 

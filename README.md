@@ -76,6 +76,23 @@
 ```
     docker compose exec django django-admin startproject <project_name>
 ```
+
+fixtureの読み込み
+```
+    docker compose exec django python manage.py loaddata <fixture_file>
+```
+
+fixtureファイルの作成
+- fixtureファイルはテーブルの中身をそのまま置き換える
+```
+	docker compose exec django python make_data.py
+```
+
+superuserの作成
+```
+    python manage.py createsuperuser
+```
+
 ### React
 
 **各種コマンド**

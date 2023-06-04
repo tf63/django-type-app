@@ -1,6 +1,7 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Card from './Card'
+import { useLocation } from 'react-router-dom'
 
 const Caret: React.FC = () => <span className="caret"></span>
 
@@ -36,6 +37,13 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
         index: 0,
         indexLine: 0
     })
+    const divRef = useRef(null)
+
+    useEffect(() => {
+        if (divRef.current) {
+            divRef.current.focus()
+        }
+    }, [])
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
         const key = event.key
@@ -99,41 +107,34 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
     }
 
     return (
-        <div className="card target_block" tabIndex={0} onKeyDown={handleKeyDown}>
+        <div className="card target_block" tabIndex={0} onKeyDown={handleKeyDown} ref={divRef}>
             <ul>{targetItems}</ul>
         </div>
     )
 }
 
 // リファクタリングが必要
-function Game() {
+const Game: React.FC = () => {
+    const location = useLocation()
     const [typeTexts, setTypeTexts] = useState<string[]>([])
     const [prefixs, setPrefixs] = useState<string[]>([])
 
     useEffect(() => {
-        async function fetchData() {
-            // api
-            const response = await fetch('http://localhost:8000/api/problem')
-            const data = await response.json()
+        // inputs
+        setTypeTexts(location.state.words)
 
-            // inputs
-            setTypeTexts(data.words)
+        const tabCounts: number[] = location.state.tab_counts
+        const tabSpaceWidth = 4
+        const spaces = tabCounts.map((tabCount) => {
+            return '\u00A0'.repeat(tabSpaceWidth).repeat(tabCount)
+        })
+        setPrefixs(spaces)
 
-            const tabCounts: number[] = data.tab_counts
-            const tabSpaceWidth = 4
-            const spaces = tabCounts.map((tabCount) => {
-                return '\u00A0'.repeat(tabSpaceWidth).repeat(tabCount)
-            })
-            setPrefixs(spaces)
-
-            // setWord(data.word)
-            // setWords(data.words)
-            // setNumLines(data.words.length)
-            // setTabCounts(data.tab_counts)
-            // setTimeLeft(data.time_limit)
-        }
-
-        fetchData()
+        // setWord(data.word)
+        // setWords(data.words)
+        // setNumLines(data.words.length)
+        // setTabCounts(data.tab_counts)
+        // setTimeLeft(data.time_limit)
     }, [])
 
     useEffect(() => {

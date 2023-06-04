@@ -3,27 +3,27 @@ import json
 filepath = "api/fixtures/problem_data.json" 
 model = "api.problem"
 language = "python"
-length = "long"
-text = """class Car:
-    def __init__(self, make, model, year, color):
-        self.make = make
-        self.model = model
-        self.year = year
-        self.color = color
-        self.speed = 0
+length = "medium" # short, medium, long
+text = """class BankAccount:
+    def __init__(self, account_number, account_holder, initial_balance=0):
+        self.account_number = account_number
+        self.account_holder = account_holder
+        self.balance = initial_balance
     
-    def accelerate(self, increment):
-        self.speed += increment
+    def deposit(self, amount):
+        self.balance += amount
+        print(f"{self.account_holder}さんの口座に{amount}円入金しました。")
     
-    def brake(self, decrement):
-        self.speed -= decrement
+    def withdraw(self, amount):
+        if self.balance >= amount:
+            self.balance -= amount
+            print(f"{self.account_holder}さんの口座から{amount}円引き出しました。")
+        else:
+            print("残高が不足しています。")
     
-    def display_info(self):
-        print(f"Make: {self.make}")
-        print(f"Model: {self.model}")
-        print(f"Year: {self.year}")
-        print(f"Color: {self.color}")
-        print(f"Speed: {self.speed} km/h")
+    def check_balance(self):
+        print(f"{self.account_holder}さんの口座残高は{self.balance}円です。")
+
 """
 
 words = []
