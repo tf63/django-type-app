@@ -64,16 +64,6 @@ $(document).ready(async function () {
     // catch keydown
     $(document).on("keydown", function (event) {
 
-        // // タブキーが押された場合、デフォルトの動作をキャンセルする
-        // if (event.keyCode == "9") {
-        //     event.preventDefault();
-        // }
-
-        // // タブキーが押された場合、デフォルトの動作をキャンセルする
-        // if (event.keyCode == "32") {
-        //     event.preventDefault();
-        // }
-
         let key = event.key;
         console.log(`キー ${key} が押されました`);
 

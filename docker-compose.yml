@@ -7,14 +7,14 @@ services:
       dockerfile: containers/django/Dockerfile
     tty: true
     volumes:
-      - .:/work
+      - ./backend:/app
     ports:
-      - 8001:8001
+      - 8000:8000
     depends_on:
       - postgres
-    # コンテナ内の環境変数を.envを使って設定
     env_file:
       - .env
+    # entrypoint: containers/django/entrypoint.sh
 
   postgres:
     image: postgres:15.2
@@ -22,7 +22,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - 5432:5432
-    # コンテナ内の環境変数を.envを使って設定
     env_file:
       - .env
     # options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
@@ -35,20 +34,19 @@ services:
       - pgadmin4_data:/var/lib/pgadmin
     depends_on:
       - postgres
-    # コンテナ内の環境変数を.envを使って設定
     env_file:
       - .env
-  # front:
-  #   build:
-  #     context: .
-  #     dockerfile: containers/react/Dockerfile
-  #   restart: always
-  #   volumes:
-  #     - ./node:/usr/src/app:cached
-  #   command: sh -c "cd KawakeraProject && yarn start"
-  #   ports:
-  #     - "3000:3000"
-
+    
+  react:
+    build:
+      context: .
+      dockerfile: containers/react/Dockerfile
+    tty: true
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 5173:5173
+    command: sh -c "yarn dev"
 
 volumes:
   postgres_data:

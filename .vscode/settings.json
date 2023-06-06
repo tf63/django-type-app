@@ -1,7 +1,9 @@
-{
+{   
+    "editor.tabSize": 4,
     // ---------- Python ----------
     "[python]": {
         "editor.formatOnSave": true,
+        "editor.defaultFormatter": "ms-python.black-formatter",
     },
     // Lint機能を有効にするかどうか
     "python.linting.enabled": true,
@@ -16,5 +18,5 @@
     // ファイル保存時にLintを実行するかどうか
     "python.linting.lintOnSave": true,
     // Pythonコードの整形に何を使用するか
-    "python.formatting.provider": "black",
+    "python.formatting.provider": "none",
 }
