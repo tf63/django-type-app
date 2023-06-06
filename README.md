@@ -7,9 +7,12 @@
 
 <!-- ![](https://img.shields.io/tokei/lines/github/tf63/type_django) -->
 
+![](docs/img/select_page.png)
+![](docs/img/game_page.png)
+
 ### todo
 
-- 名前を決める
+- アプリの名前を決める
 - 各種設定のファイルをどこかに作りたい (データベースで設定を管理する?)
 - test コードから実装する
 - type.js の終了判定のエラー処理をする必要がある
