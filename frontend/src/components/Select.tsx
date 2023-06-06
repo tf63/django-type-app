@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Card from './Card'
 import LinkCard from './LinkCard'
 
-type Language = 'Python' | 'Go'
+type Language = 'Python' | 'Go' | 'TypeScript'
 
 interface Data {
     // データの型を定義する
@@ -18,9 +18,9 @@ interface Data {
 function Select() {
     const [data, setData] = useState<Data[] | null>(null)
 
-    const handleClick = async () => {
+    const handleClick = async (language: string) => {
         try {
-            const response = await fetch('http://localhost:8000/api/problem')
+            const response = await fetch(`http://localhost:8000/api/problem/?language=${language}`)
             const data = await response.json()
 
             setData(data)
@@ -31,9 +31,16 @@ function Select() {
 
     return (
         <div>
-            <div className="card-green btn" onClick={handleClick}>
+            <div className="card-green btn" onClick={() => handleClick('python')}>
                 Python
             </div>
+            <div className="card-green btn" onClick={() => handleClick('go')}>
+                Go
+            </div>
+            <div className="card-green btn" onClick={() => handleClick('typescript')}>
+                TypeScript
+            </div>
+            <div className="card"></div>
             {data && (
                 <div>
                     {data.map((item, index) => (

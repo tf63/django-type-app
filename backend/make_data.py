@@ -2,36 +2,47 @@ import json
 
 filepath = "api/fixtures/problem_data.json" 
 model = "api.problem"
-language = "python"
-length = "medium" # short, medium, long
-text = """class Vehicle:
-    def __init__(self, brand):
-        self.brand = brand
+language = "typescript"
+length = "long" # short, medium, long
+text = """interface Animal {
+    eat(): void
+    sleep(): void
+}
 
-    def accelerate(self):
-        print(self.brand, "is accelerating.")
+class Dog implements Animal {
+    constructor(private name: string) {}
 
-    def brake(self):
-        print(self.brand, "is braking.")
+    eat(): void {
+        console.log(this.name, "is eating.")
+    }
 
+    sleep(): void {
+        console.log(this.name, "is sleeping.")
+    }
+}
 
-class Car(Vehicle):
-    pass
+class Cat implements Animal {
+    constructor(private name: string) {}
 
+    eat(): void {
+        console.log(this.name, "is eating.")
+    }
 
-class Bike(Vehicle):
-    pass
+    sleep(): void {
+        console.log(this.name, "is sleeping.")
+    }
+}
 
+const dog: Animal = new Dog("Max")
+const cat: Animal = new Cat("Whiskers")
 
-car = Car("Toyota")
-bike = Bike("Mountain bike")
+const animals: Animal[] = [dog, cat]
 
-vehicles = [car, bike]
-
-for vehicle in vehicles:
-    vehicle.accelerate()
-    vehicle.brake()
-    print()
+animals.forEach((animal) => {
+    animal.eat()
+    animal.sleep()
+    console.log()
+})
 """
 
 words = []
