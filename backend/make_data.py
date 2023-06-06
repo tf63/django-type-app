@@ -2,28 +2,47 @@ import json
 
 filepath = "api/fixtures/problem_data.json" 
 model = "api.problem"
-language = "python"
-length = "long"
-text = """class Car:
-    def __init__(self, make, model, year, color):
-        self.make = make
-        self.model = model
-        self.year = year
-        self.color = color
-        self.speed = 0
-    
-    def accelerate(self, increment):
-        self.speed += increment
-    
-    def brake(self, decrement):
-        self.speed -= decrement
-    
-    def display_info(self):
-        print(f"Make: {self.make}")
-        print(f"Model: {self.model}")
-        print(f"Year: {self.year}")
-        print(f"Color: {self.color}")
-        print(f"Speed: {self.speed} km/h")
+language = "typescript"
+length = "long" # short, medium, long
+text = """interface Animal {
+    eat(): void
+    sleep(): void
+}
+
+class Dog implements Animal {
+    constructor(private name: string) {}
+
+    eat(): void {
+        console.log(this.name, "is eating.")
+    }
+
+    sleep(): void {
+        console.log(this.name, "is sleeping.")
+    }
+}
+
+class Cat implements Animal {
+    constructor(private name: string) {}
+
+    eat(): void {
+        console.log(this.name, "is eating.")
+    }
+
+    sleep(): void {
+        console.log(this.name, "is sleeping.")
+    }
+}
+
+const dog: Animal = new Dog("Max")
+const cat: Animal = new Cat("Whiskers")
+
+const animals: Animal[] = [dog, cat]
+
+animals.forEach((animal) => {
+    animal.eat()
+    animal.sleep()
+    console.log()
+})
 """
 
 words = []
@@ -32,11 +51,12 @@ for i, w in enumerate(text.split("\n")):
     tab_count = 0
     w_striped = w.lstrip("\t")
     tab_count += len(w) - len(w_striped)
-    w_striped = w.lstrip(" ")
+    w_striped = w_striped.lstrip(" ")
     tab_count += int((len(w) - len(w_striped)) / 4)
 
     words.append(w_striped)
     tab_counts.append(tab_count)
+
 
 # 追加するデータ
 fields = {

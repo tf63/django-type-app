@@ -29,11 +29,11 @@ class Problem(models.Model):
         ('medium', 'medium'),
         ('long', 'long'),
     )
-
+    
     language = models.CharField(max_length=100, choices=LANGUAGE_CHOICES)
     length = models.CharField(max_length=10, choices=LENGTH_CHOICES)
-    words = ArrayField(models.CharField(max_length=200))
-    tab_counts = ArrayField(models.IntegerField())
+    words = ArrayField(models.CharField(max_length=200), default=list)
+    tab_counts = ArrayField(models.IntegerField(), default=list)
 
     def __str__(self):
         return f"Problem {self.pk}, Lang: {self.language}, length: {self.length}"
