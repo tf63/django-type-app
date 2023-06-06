@@ -4,26 +4,34 @@ filepath = "api/fixtures/problem_data.json"
 model = "api.problem"
 language = "python"
 length = "medium" # short, medium, long
-text = """class BankAccount:
-    def __init__(self, account_number, account_holder, initial_balance=0):
-        self.account_number = account_number
-        self.account_holder = account_holder
-        self.balance = initial_balance
-    
-    def deposit(self, amount):
-        self.balance += amount
-        print(f"{self.account_holder}さんの口座に{amount}円入金しました。")
-    
-    def withdraw(self, amount):
-        if self.balance >= amount:
-            self.balance -= amount
-            print(f"{self.account_holder}さんの口座から{amount}円引き出しました。")
-        else:
-            print("残高が不足しています。")
-    
-    def check_balance(self):
-        print(f"{self.account_holder}さんの口座残高は{self.balance}円です。")
+text = """class Vehicle:
+    def __init__(self, brand):
+        self.brand = brand
 
+    def accelerate(self):
+        print(self.brand, "is accelerating.")
+
+    def brake(self):
+        print(self.brand, "is braking.")
+
+
+class Car(Vehicle):
+    pass
+
+
+class Bike(Vehicle):
+    pass
+
+
+car = Car("Toyota")
+bike = Bike("Mountain bike")
+
+vehicles = [car, bike]
+
+for vehicle in vehicles:
+    vehicle.accelerate()
+    vehicle.brake()
+    print()
 """
 
 words = []
@@ -32,11 +40,12 @@ for i, w in enumerate(text.split("\n")):
     tab_count = 0
     w_striped = w.lstrip("\t")
     tab_count += len(w) - len(w_striped)
-    w_striped = w.lstrip(" ")
+    w_striped = w_striped.lstrip(" ")
     tab_count += int((len(w) - len(w_striped)) / 4)
 
     words.append(w_striped)
     tab_counts.append(tab_count)
+
 
 # 追加するデータ
 fields = {
