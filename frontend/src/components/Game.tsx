@@ -1,5 +1,6 @@
 import React from 'react'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
+import { createContext } from 'react'
 import Card from './Card'
 import { useLocation } from 'react-router-dom'
 
@@ -37,6 +38,9 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
         index: 0,
         indexLine: 0
     })
+
+    const incrementGameState = useContext(GameStateContext)
+
     const divRef = useRef(null)
 
     useEffect(() => {
@@ -68,9 +72,11 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
             if (key == text[index]) {
                 // 入力が合っていたら
                 setState((prev) => ({ ...prev, index: prev.index + 1 }))
+                incrementGameState.correct()
                 console.log('correct !!')
             } else {
                 // 入力が間違っていたら
+                incrementGameState.miss()
                 console.log('incorrect !!')
             }
         } else {
@@ -78,9 +84,11 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
             if (key === 'Enter') {
                 // Enterが押されたら次の行へ移動
                 setState((prev) => ({ ...prev, index: 0, indexLine: prev.indexLine + 1 }))
+                incrementGameState.correct()
                 console.log('correct !!')
             } else {
                 // Enter以外のキーが押されたらミスとする
+                incrementGameState.miss()
                 console.log('incorrect !!')
             }
         }
@@ -113,11 +121,47 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
     )
 }
 
+type GameState = {
+    correct: number
+    miss: number
+    time: number
+}
+
+interface IncrementGameState {
+    correct: () => void
+    miss: () => void
+    time: () => void
+}
+
+const GameStateContext = createContext<IncrementGameState>({ correct: () => {}, miss: () => {}, time: () => {} })
+
 // リファクタリングが必要
 const Game: React.FC = () => {
     const location = useLocation()
     const [typeTexts, setTypeTexts] = useState<string[]>([])
     const [prefixs, setPrefixs] = useState<string[]>([])
+
+    const [gameState, setGameState] = useState<GameState>({
+        correct: 0,
+        miss: 0,
+        time: 0
+    })
+
+    const incrementCorrect = () => {
+        setGameState((prev) => ({ ...prev, correct: prev.correct + 1 }))
+    }
+    const incrementMiss = () => {
+        setGameState((prev) => ({ ...prev, miss: prev.miss + 1 }))
+    }
+    const incrementTime = () => {
+        setGameState((prev) => ({ ...prev, time: prev.time + 1 }))
+    }
+
+    const incrementGameState: IncrementGameState = {
+        correct: incrementCorrect,
+        miss: incrementMiss,
+        time: incrementTime
+    }
 
     useEffect(() => {
         // inputs
@@ -130,16 +174,18 @@ const Game: React.FC = () => {
         })
         setPrefixs(spaces)
 
-        // setWord(data.word)
-        // setWords(data.words)
-        // setNumLines(data.words.length)
-        // setTabCounts(data.tab_counts)
-        // setTimeLeft(data.time_limit)
+        const interval = setInterval(() => {
+            incrementGameState.time()
+        }, 1000)
+
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
-    useEffect(() => {
-        console.log(typeTexts)
-    }, [typeTexts])
+    // useEffect(() => {
+    //     console.log(typeTexts)
+    // }, [typeTexts])
 
     if (typeTexts.length == 0) {
         console.log('Loading...')
@@ -147,10 +193,13 @@ const Game: React.FC = () => {
     }
 
     return (
-        <div>
+        <GameStateContext.Provider value={incrementGameState}>
             <Card content="Game" />
             <TargetBlock inputs={typeTexts} prefixs={prefixs} />
-        </div>
+            <Card content={`correct: ${gameState.correct}`} />
+            <Card content={`miss: ${gameState.miss}`} />
+            <Card content={`time: ${gameState.time}`} />
+        </GameStateContext.Provider>
     )
 }
 
