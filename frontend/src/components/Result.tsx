@@ -7,7 +7,7 @@ import { GameState } from '../types/types'
 
 const Result: React.FC = () => {
     const location = useLocation()
-    const gameState = location.state
+    const gameState: GameState = location.state
 
     return (
         <div>

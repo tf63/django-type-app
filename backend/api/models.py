@@ -37,3 +37,11 @@ class Problem(models.Model):
 
     def __str__(self):
         return f"Problem {self.pk}, Lang: {self.language}, length: {self.length}"
+
+class Record(models.Model):
+    correct = models.IntegerField()
+    miss = models.IntegerField()
+    time = models.IntegerField()
+
+    def __str__(self):
+        return f"Record {self.id}"

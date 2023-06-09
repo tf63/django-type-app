@@ -4,6 +4,7 @@ import { createContext } from 'react'
 import Card from './Card'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { GameState } from '../types/types'
+import axios from 'axios'
 
 const Caret: React.FC = () => <span className="caret"></span>
 
@@ -154,6 +155,16 @@ const Game: React.FC = () => {
         time: 0
     })
 
+    const post_data = async (data: GameState) => {
+        try {
+            console.log(data)
+            const response = await axios.post('http://localhost:8000/api/record/', data)
+            console.log(response.data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     const incrementCorrect = () => {
         setGameState((prev) => ({ ...prev, correct: prev.correct + 1 }))
     }
@@ -164,6 +175,7 @@ const Game: React.FC = () => {
         setGameState((prev) => ({ ...prev, time: prev.time + 1 }))
     }
     const handleNavigate = () => {
+        post_data(gameState)
         navigateResult('/result', { state: gameState })
     }
 
