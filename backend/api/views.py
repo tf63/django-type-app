@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Problem
-from .serializers import ProblemSerializer
+from .serializers import ProblemSerializer, RecordSerializer
 
 class ProblemAPIView(APIView):
     def get(self, request):
@@ -28,6 +28,18 @@ class ProblemAPIView(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+class RecordAPIView(APIView):
+    def post(self, request):
+        
+        data = request.data
+
+        serializer = RecordSerializer(data=data)
+        if serializer.is_valid():
+            # Save the record
+            record = serializer.save()
+            return Response({'message': 'Record created successfully.'})
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class InfoAPIView(APIView):
     def get(self, request):
