@@ -4,10 +4,24 @@ import { Link, useLocation } from 'react-router-dom'
 import Card from './Card'
 import LinkCard from './LinkCard'
 import { GameState } from '../types/types'
+import axios from 'axios'
 
 const Result: React.FC = () => {
     const location = useLocation()
-    const gameState = location.state
+    const gameState: GameState = location.state
+
+    const post_data = async (data: GameState) => {
+        try {
+            const response = await axios.post('http://localhost:8000/api/record', data)
+            console.log(response.data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        post_data(gameState)
+    }, [])
 
     return (
         <div>

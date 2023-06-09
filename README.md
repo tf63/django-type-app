@@ -123,11 +123,8 @@ superuserの作成
 
 **各種ライブラリ**
 
-react-router-dom
-
-```
-    npm i react-router-dom
-```
+- react-router-dom
+- axios
 
 ### 参考
 React (TypeScript) チュートリアル

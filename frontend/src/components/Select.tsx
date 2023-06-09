@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Card from './Card'
 import LinkCard from './LinkCard'
+import axios from 'axios'
 
 type Language = 'Python' | 'Go' | 'TypeScript'
 
