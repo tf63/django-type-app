@@ -11,6 +11,7 @@ const Result: React.FC = () => {
 
     return (
         <div>
+            <div className="card">Result</div>
             <div className="card">correct: {gameState.correct}</div>
             <div className="card">miss: {gameState.miss}</div>
             <div className="card">time: {gameState.time}</div>
