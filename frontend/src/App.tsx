@@ -16,6 +16,7 @@ import Tutorial from './components/Tutorial'
 import Material from './components/Material'
 import Counter from './components/Tutorial/Counter'
 import Timer from './components/Tutorial/Timer'
+import Result from './components/Result'
 
 function App() {
     return (
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/material" element={<Material />} />
                 <Route path="/tutorial" element={<Tutorial />} />
                 <Route path="/select" element={<Select />} />
+                <Route path="/result" element={<Result />} />
                 {/* Tutorials */}
                 <Route path="/tictactoe" element={<TicTacToe />} />
                 <Route path="/counter" element={<Counter initialValue={0} />} />

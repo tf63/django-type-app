@@ -2,7 +2,8 @@ import React from 'react'
 import { useEffect, useState, useRef, useContext } from 'react'
 import { createContext } from 'react'
 import Card from './Card'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { GameState } from '../types/types'
 
 const Caret: React.FC = () => <span className="caret"></span>
 
@@ -39,7 +40,7 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
         indexLine: 0
     })
 
-    const incrementGameState = useContext(GameStateContext)
+    const gameStateContext = useContext(GameStateContext)
 
     const divRef = useRef(null)
 
@@ -72,11 +73,11 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
             if (key == text[index]) {
                 // 入力が合っていたら
                 setState((prev) => ({ ...prev, index: prev.index + 1 }))
-                incrementGameState.correct()
+                gameStateContext.correct()
                 console.log('correct !!')
             } else {
                 // 入力が間違っていたら
-                incrementGameState.miss()
+                gameStateContext.miss()
                 console.log('incorrect !!')
             }
         } else {
@@ -84,11 +85,15 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
             if (key === 'Enter') {
                 // Enterが押されたら次の行へ移動
                 setState((prev) => ({ ...prev, index: 0, indexLine: prev.indexLine + 1 }))
-                incrementGameState.correct()
+                gameStateContext.correct()
                 console.log('correct !!')
+
+                if (state.indexLine == state.typeTexts.length - 1) {
+                    gameStateContext.navigate()
+                }
             } else {
                 // Enter以外のキーが押されたらミスとする
-                incrementGameState.miss()
+                gameStateContext.miss()
                 console.log('incorrect !!')
             }
         }
@@ -121,23 +126,25 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
     )
 }
 
-type GameState = {
-    correct: number
-    miss: number
-    time: number
-}
-
-interface IncrementGameState {
+interface IGameStateContext {
     correct: () => void
     miss: () => void
     time: () => void
+    navigate: () => void
 }
 
-const GameStateContext = createContext<IncrementGameState>({ correct: () => {}, miss: () => {}, time: () => {} })
+const GameStateContext = createContext<IGameStateContext>({
+    correct: () => {},
+    miss: () => {},
+    time: () => {},
+    navigate: () => {}
+})
 
 // リファクタリングが必要
 const Game: React.FC = () => {
     const location = useLocation()
+    const navigateResult = useNavigate()
+
     const [typeTexts, setTypeTexts] = useState<string[]>([])
     const [prefixs, setPrefixs] = useState<string[]>([])
 
@@ -156,11 +163,15 @@ const Game: React.FC = () => {
     const incrementTime = () => {
         setGameState((prev) => ({ ...prev, time: prev.time + 1 }))
     }
+    const handleNavigate = () => {
+        navigateResult('/result', { state: gameState })
+    }
 
-    const incrementGameState: IncrementGameState = {
+    const gameStateContext: IGameStateContext = {
         correct: incrementCorrect,
         miss: incrementMiss,
-        time: incrementTime
+        time: incrementTime,
+        navigate: handleNavigate
     }
 
     useEffect(() => {
@@ -175,7 +186,7 @@ const Game: React.FC = () => {
         setPrefixs(spaces)
 
         const interval = setInterval(() => {
-            incrementGameState.time()
+            gameStateContext.time()
         }, 1000)
 
         return () => {
@@ -193,7 +204,7 @@ const Game: React.FC = () => {
     }
 
     return (
-        <GameStateContext.Provider value={incrementGameState}>
+        <GameStateContext.Provider value={gameStateContext}>
             <Card content="Game" />
             <TargetBlock inputs={typeTexts} prefixs={prefixs} />
             <Card content={`correct: ${gameState.correct}`} />

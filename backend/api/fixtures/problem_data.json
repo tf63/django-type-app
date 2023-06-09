@@ -808,5 +808,19 @@
                 0
             ]
         }
+    },
+    {
+        "model": "api.problem",
+        "pk": 11,
+        "fields": {
+            "language": "python",
+            "length": "short",
+            "words": [
+                "print(\"abcd\")"
+            ],
+            "tab_counts": [
+                0
+            ]
+        }
     }
 ]
