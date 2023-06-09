@@ -42,3 +42,6 @@ class Record(models.Model):
     correct = models.IntegerField()
     miss = models.IntegerField()
     time = models.IntegerField()
+
+    def __str__(self):
+        return f"Record {self.id}"
