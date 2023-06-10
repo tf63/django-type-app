@@ -21,27 +21,18 @@
 - (mainブランチは常にデプロイできる状態にする)
 
 ### 使いたい技術
-
-- (tailwindcss)
-- Django + React
-  - jQuery?
-- DRF
-- Firebase
-- Github Actions
-- AWS
-- Figma
-- DB 周りのこと
+- Docker, Github Actions
+- Figma or (tailwindcss)
+- DRF + React(TypeScript) or jQuery?, AWS, (Firebase)
 
 ### url
-
-- `/`: index
-- `/select`: 問題を選択する
-
-  - `/game`: ゲーム画面
-
-  - `/result`: ゲームのリザルト画面
-
-- `/profile`: 過去の成績一覧
+| url | page |
+| - | - |
+| / | ホーム画面 |
+| /select | 問題選択画面 |
+| /game | ゲーム画面 |
+| /result | ゲームのリザルト画面 |
+| /profile | 過去の成績一覧 |
 
 ### Docker
 コンテナの起動
@@ -84,8 +75,6 @@ superuserの作成
 
 ### React
 
-**各種コマンド**
-
 プロジェクトの作成
 
 ```
@@ -110,7 +99,7 @@ superuserの作成
     docker compose exec react yarn dev
 ```
 
-**使うTypeScriptライブラリ**
+**TypeScriptライブラリ**
 - react-router-dom
 - axios
 
