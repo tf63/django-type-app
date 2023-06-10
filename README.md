@@ -10,41 +10,15 @@
 ![](docs/img/select_page.png)
 ![](docs/img/game_page.png)
 
-### todo
-
-- アプリの名前を決める
-- 各種設定のファイルをどこかに作りたい (データベースで設定を管理する?)
-- test コードから実装する
-- type.js の終了判定のエラー処理をする必要がある
-- result のページは普通には遷移できないようにする? (じゃあ URL 遷移しないほうがよい?)
-- nginx, gunicorn コンテナも追加する
-- ゲーム画面にキーボードを表示する
-- ゲームにオプションを追加する
-  - コーディングスタイル等をオプションで変えられるようにする?
-  - キーボード表示の有無
-- TypeScript に変更する
-- React を導入する
-
-### url
-
-- `/`: index
-- `/select`: 問題を選択する
-
-  - `/game`: ゲーム画面
-
-  - `/result`: ゲームのリザルト画面
-
-- `/profile`: 過去の成績一覧
-
 ### やりたいこと
-
 - タイピングシステムに対してテスト文を生成できそう
   - ｢おちゃ｣という文に対して otilya や otya を生成
 - ChatGPT で問題を作成したい
 - タイプミスのデータを収集し，ミスしやすい問題を分析したい
 - CI
-- デザインをクレイモーフィズム (Figma)
+- デザインをニューモーフィズム (Figma)
 - テスト駆動開発
+- (mainブランチは常にデプロイできる状態にする)
 
 ### 使いたい技術
 
@@ -57,6 +31,17 @@
 - AWS
 - Figma
 - DB 周りのこと
+
+### url
+
+- `/`: index
+- `/select`: 問題を選択する
+
+  - `/game`: ゲーム画面
+
+  - `/result`: ゲームのリザルト画面
+
+- `/profile`: 過去の成績一覧
 
 ### Docker
 コンテナの起動
@@ -75,6 +60,7 @@
 ```
 
 ### Django (Backend)
+
 プロジェクトの作成
 ```
     docker compose exec django django-admin startproject <project_name>
@@ -124,15 +110,22 @@ superuserの作成
     docker compose exec react yarn dev
 ```
 
-**各種ライブラリ**
-react-router-dom
+**使うTypeScriptライブラリ**
+- react-router-dom
+- axios
 
-```
-    npm i react-router-dom
-```
+### Github コミットメッセージなど
+- feat: 新しい機能の追加や改善
+- test - テストの追加や修正
+- fix - バグ修正
+- refactor - コードのリファクタリング
+- docs - ドキュメントの追加や修正
+- style - コードスタイルの修正（スペース、インデントなど
+- chore - その他の雑務や構成の変更
 
 ### 参考
-- React (TypeScript) チュートリアル
+React (TypeScript) チュートリアル
+
 https://zenn.dev/roiban/articles/473f9cbf2b793a
 
 https://react.dev/learn/tutorial-tic-tac-toe#setup-for-the-tutorial

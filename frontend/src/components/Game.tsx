@@ -1,7 +1,10 @@
 import React from 'react'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
+import { createContext } from 'react'
 import Card from './Card'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { GameState } from '../types/types'
+import axios from 'axios'
 
 const Caret: React.FC = () => <span className="caret"></span>
 
@@ -37,6 +40,9 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
         index: 0,
         indexLine: 0
     })
+
+    const gameStateContext = useContext(GameStateContext)
+
     const divRef = useRef(null)
 
     useEffect(() => {
@@ -68,9 +74,11 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
             if (key == text[index]) {
                 // 入力が合っていたら
                 setState((prev) => ({ ...prev, index: prev.index + 1 }))
+                gameStateContext.correct()
                 console.log('correct !!')
             } else {
                 // 入力が間違っていたら
+                gameStateContext.miss()
                 console.log('incorrect !!')
             }
         } else {
@@ -78,9 +86,15 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
             if (key === 'Enter') {
                 // Enterが押されたら次の行へ移動
                 setState((prev) => ({ ...prev, index: 0, indexLine: prev.indexLine + 1 }))
+                gameStateContext.correct()
                 console.log('correct !!')
+
+                if (state.indexLine == state.typeTexts.length - 1) {
+                    gameStateContext.navigate()
+                }
             } else {
                 // Enter以外のキーが押されたらミスとする
+                gameStateContext.miss()
                 console.log('incorrect !!')
             }
         }
@@ -113,11 +127,64 @@ const TargetBlock: React.FC<{ inputs: string[]; prefixs: string[] }> = ({ inputs
     )
 }
 
+interface IGameStateContext {
+    correct: () => void
+    miss: () => void
+    time: () => void
+    navigate: () => void
+}
+
+const GameStateContext = createContext<IGameStateContext>({
+    correct: () => {},
+    miss: () => {},
+    time: () => {},
+    navigate: () => {}
+})
+
 // リファクタリングが必要
 const Game: React.FC = () => {
     const location = useLocation()
+    const navigateResult = useNavigate()
+
     const [typeTexts, setTypeTexts] = useState<string[]>([])
     const [prefixs, setPrefixs] = useState<string[]>([])
+
+    const [gameState, setGameState] = useState<GameState>({
+        correct: 0,
+        miss: 0,
+        time: 0
+    })
+
+    const post_data = async (data: GameState) => {
+        try {
+            console.log(data)
+            const response = await axios.post('http://localhost:8000/api/record/', data)
+            console.log(response.data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const incrementCorrect = () => {
+        setGameState((prev) => ({ ...prev, correct: prev.correct + 1 }))
+    }
+    const incrementMiss = () => {
+        setGameState((prev) => ({ ...prev, miss: prev.miss + 1 }))
+    }
+    const incrementTime = () => {
+        setGameState((prev) => ({ ...prev, time: prev.time + 1 }))
+    }
+    const handleNavigate = () => {
+        post_data(gameState)
+        navigateResult('/result', { state: gameState })
+    }
+
+    const gameStateContext: IGameStateContext = {
+        correct: incrementCorrect,
+        miss: incrementMiss,
+        time: incrementTime,
+        navigate: handleNavigate
+    }
 
     useEffect(() => {
         // inputs
@@ -130,16 +197,18 @@ const Game: React.FC = () => {
         })
         setPrefixs(spaces)
 
-        // setWord(data.word)
-        // setWords(data.words)
-        // setNumLines(data.words.length)
-        // setTabCounts(data.tab_counts)
-        // setTimeLeft(data.time_limit)
+        const interval = setInterval(() => {
+            gameStateContext.time()
+        }, 1000)
+
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
-    useEffect(() => {
-        console.log(typeTexts)
-    }, [typeTexts])
+    // useEffect(() => {
+    //     console.log(typeTexts)
+    // }, [typeTexts])
 
     if (typeTexts.length == 0) {
         console.log('Loading...')
@@ -147,10 +216,13 @@ const Game: React.FC = () => {
     }
 
     return (
-        <div>
+        <GameStateContext.Provider value={gameStateContext}>
             <Card content="Game" />
             <TargetBlock inputs={typeTexts} prefixs={prefixs} />
-        </div>
+            <Card content={`correct: ${gameState.correct}`} />
+            <Card content={`miss: ${gameState.miss}`} />
+            <Card content={`time: ${gameState.time}`} />
+        </GameStateContext.Provider>
     )
 }
 
