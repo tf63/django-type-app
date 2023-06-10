@@ -1,87 +1,54 @@
 import json
+from api.utils import get_words_tabs, update_fixture
 
-filepath = "api/fixtures/problem_data.json" 
-model = "api.problem"
+filename = "problem_data.json" 
+modelname = "api.problem"
 language = "typescript"
-length = "long" # short, medium, long
-text = """interface Animal {
-    eat(): void
-    sleep(): void
+length = "medium" # short, medium, long
+text = """interface Dress {
+    getColor(): string
+    getSize(): string
 }
 
-class Dog implements Animal {
-    constructor(private name: string) {}
+class Clothing implements Dress {
+    constructor(private color: string, private size: string) {}
 
-    eat(): void {
-        console.log(this.name, "is eating.")
+    getColor(): string {
+        return this.color
     }
 
-    sleep(): void {
-        console.log(this.name, "is sleeping.")
-    }
-}
-
-class Cat implements Animal {
-    constructor(private name: string) {}
-
-    eat(): void {
-        console.log(this.name, "is eating.")
-    }
-
-    sleep(): void {
-        console.log(this.name, "is sleeping.")
+    getSize(): string {
+        return this.size
     }
 }
 
-const dog: Animal = new Dog("Max")
-const cat: Animal = new Cat("Whiskers")
+class Shirt extends Clothing {
+    getStyle(): string {
+        return "Casual"
+    }
+}
 
-const animals: Animal[] = [dog, cat]
+class DressShirt extends Shirt {
+    getStyle(): string {
+        return "Formal"
+    }
+}
 
-animals.forEach((animal) => {
-    animal.eat()
-    animal.sleep()
-    console.log()
-})
+class Pants extends Clothing {
+    getStyle(): string {
+        return "Casual"
+    }
+}
 """
 
-words = []
-tab_counts = []
-for i, w in enumerate(text.split("\n")):
-    tab_count = 0
-    w_striped = w.lstrip("\t")
-    tab_count += len(w) - len(w_striped)
-    w_striped = w_striped.lstrip(" ")
-    tab_count += int((len(w) - len(w_striped)) / 4)
-
-    words.append(w_striped)
-    tab_counts.append(tab_count)
-
+words, tab_counts = get_words_tabs(text=text)
 
 # 追加するデータ
 fields = {
-    "language": language,
-    "length": length,
-    "words": words,
-    "tab_counts": tab_counts
+        "language": language,
+        "length": length,
+        "words": words,
+        "tab_counts": tab_counts
 }
 
-# JSONファイルの読み込み
-with open(filepath, "r") as file:
-    data = json.load(file)
-
-if not data:
-    max_pk = 0
-else:
-    max_pk = max(obj["pk"] for obj in data)
-
-new_data = {
-    "model": model,
-    "pk": max_pk + 1,
-    "fields": fields
-}
-data.append(new_data)
-
-# JSONファイルへの保存
-with open(filepath, "w") as file:
-    json.dump(data, file, indent=4)
+update_fixture(fields=fields, filename=filename, modelname=modelname)

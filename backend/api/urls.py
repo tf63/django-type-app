@@ -6,6 +6,5 @@ app_name = "api"
 urlpatterns = [
     path("problem/", views.ProblemAPIView.as_view(), name="problem"),
     path("record/", views.RecordAPIView.as_view(), name="record"),
-    path("info/", views.InfoAPIView.as_view(), name="info"),
-    path("", views.index, name='index')
+    path("", views.index, name="index"),
 ]
