@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from .types import LANGUAGE_CHOICES, LENGTH_CHOICES
 
+
 class Problem(models.Model):
     problem_name = models.CharField(max_length=100, default="")
     language = models.CharField(max_length=100, choices=LANGUAGE_CHOICES)
@@ -11,6 +12,7 @@ class Problem(models.Model):
 
     def __str__(self):
         return f"{self.problem_name}, Lang: {self.language}, length: {self.length}"
+
 
 class Record(models.Model):
     correct = models.PositiveIntegerField()
