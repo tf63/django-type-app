@@ -3,6 +3,9 @@ name: Django CI
 on:
   push:
     branches: [ "master", "dev" ]
+    paths: 
+      - "!README.md"
+      - "!docs/*"
   pull_request:
     branches: [ "master", "dev" ]
 
