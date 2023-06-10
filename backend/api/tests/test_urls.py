@@ -8,12 +8,13 @@ class TestURLs(TestCase):
         self.problem_url = reverse("api:problem")
         self.record_url = reverse("api:record")
 
-    def test_problem_url(self):
+    def test_problem(self):
         response = self.client.get(self.problem_url)
         self.assertEquals(response.status_code, 200)
-        # self.assertTemplateUsed(response, "index.html")
 
-    def test_record_url(self):
+    def test_problem_not_found(self):
+        pass
+
+    def test_record(self):
         response = self.client.get(self.record_url)
         self.assertEquals(response.status_code, 200)
-        # self.assertTemplateUsed(response, "index.html")

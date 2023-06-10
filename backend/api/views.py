@@ -6,7 +6,7 @@ from string import ascii_lowercase
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Problem
+from .models import Problem, Record
 from .serializers import ProblemSerializer, RecordSerializer
 
 class ProblemAPIView(APIView):
@@ -29,6 +29,16 @@ class ProblemAPIView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class RecordAPIView(APIView):
+    def get(self, request):
+        try: 
+            # idの降順で最新の30件を取得
+            queryset = Record.objects.order_by('-id')[:30]  
+            serializer = RecordSerializer(queryset, many=True)
+
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     def post(self, request):
         
         data = request.data

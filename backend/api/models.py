@@ -13,9 +13,9 @@ class Problem(models.Model):
         return f"{self.problem_name}, Lang: {self.language}, length: {self.length}"
 
 class Record(models.Model):
-    correct = models.IntegerField()
-    miss = models.IntegerField()
-    time = models.IntegerField()
+    correct = models.PositiveIntegerField()
+    miss = models.PositiveIntegerField()
+    time = models.PositiveIntegerField()
 
     def __str__(self):
         return f"Record {self.id}"
