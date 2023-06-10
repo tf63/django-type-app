@@ -12,9 +12,6 @@ class TestURLs(TestCase):
         response = self.client.get(self.problem_url)
         self.assertEquals(response.status_code, 200)
 
-    def test_problem_not_found(self):
-        pass
-
     def test_record(self):
         response = self.client.get(self.record_url)
         self.assertEquals(response.status_code, 200)
