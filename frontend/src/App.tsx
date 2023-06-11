@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 
 import Home from './components/Home'
 import About from './components/About'
+import Profile from './components/Profile'
 import Card from './components/Card'
 import Game from './components/Game'
 import Greeting from './components/Tutorial/Greeting'
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/game" element={<Game />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/material" element={<Material />} />
                 <Route path="/tutorial" element={<Tutorial />} />
                 <Route path="/select" element={<Select />} />

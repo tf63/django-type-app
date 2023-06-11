@@ -4,6 +4,7 @@ import { createContext } from 'react'
 import Card from './Card'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { GameState } from '../types/types'
+import { ProblemData } from '../types/types'
 import axios from 'axios'
 
 const Caret: React.FC = () => <span className="caret"></span>
@@ -146,10 +147,19 @@ const Game: React.FC = () => {
     const location = useLocation()
     const navigateResult = useNavigate()
 
-    const [typeTexts, setTypeTexts] = useState<string[]>([])
+    const [problemData, setProblemData] = useState<ProblemData>({
+        id: 0,
+        problem_name: '',
+        language: 'python',
+        problem_size: undefined,
+        words: [],
+        tab_counts: []
+    })
+
     const [prefixs, setPrefixs] = useState<string[]>([])
 
     const [gameState, setGameState] = useState<GameState>({
+        problem: 0,
         correct: 0,
         miss: 0,
         time: 0
@@ -157,9 +167,7 @@ const Game: React.FC = () => {
 
     const post_data = async (data: GameState) => {
         try {
-            console.log(data)
             const response = await axios.post('http://localhost:8000/api/record/', data)
-            console.log(response.data)
         } catch (error) {
             console.error(error)
         }
@@ -188,8 +196,10 @@ const Game: React.FC = () => {
 
     useEffect(() => {
         // inputs
-        setTypeTexts(location.state.words)
+        setProblemData(location.state)
 
+        // setTypeTexts(location.state.words)
+        // setProblemId(location.state.id)
         const tabCounts: number[] = location.state.tab_counts
         const tabSpaceWidth = 4
         const spaces = tabCounts.map((tabCount) => {
@@ -206,11 +216,16 @@ const Game: React.FC = () => {
         }
     }, [])
 
+    useEffect(() => {
+        setGameState((prev) => ({ ...prev, problem: problemData.id }))
+        console.log(problemData)
+    }, [problemData])
+
     // useEffect(() => {
     //     console.log(typeTexts)
     // }, [typeTexts])
 
-    if (typeTexts.length == 0) {
+    if (problemData.words.length == 0) {
         console.log('Loading...')
         return <div>Loading...</div>
     }
@@ -218,7 +233,7 @@ const Game: React.FC = () => {
     return (
         <GameStateContext.Provider value={gameStateContext}>
             <Card content="Game" />
-            <TargetBlock inputs={typeTexts} prefixs={prefixs} />
+            <TargetBlock inputs={problemData.words} prefixs={prefixs} />
             <Card content={`correct: ${gameState.correct}`} />
             <Card content={`miss: ${gameState.miss}`} />
             <Card content={`time: ${gameState.time}`} />
