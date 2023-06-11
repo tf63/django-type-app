@@ -15,6 +15,7 @@ class Problem(models.Model):
 
 
 class Record(models.Model):
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
     correct = models.PositiveIntegerField()
     miss = models.PositiveIntegerField()
     time = models.PositiveIntegerField()
