@@ -6,7 +6,7 @@ from api.models import Problem
 
 class RecordAPIViewTestCase(APITestCase):
     def setUp(self):
-        # 必要なテストデータをセットアップする
+        # 必要なテストデータをセットアップ
         problem = Problem.objects.create(
             problem_name="Test Problem",
             language="python",
