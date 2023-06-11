@@ -12,8 +12,6 @@ function Profile() {
             try {
                 const response = await axios.get('http://localhost:8000/api/record')
                 const data = response.data
-                // const response = await fetch('http://localhost:8000/api/record')
-                // const data = await response.json()
 
                 setData(data)
             } catch (error) {
