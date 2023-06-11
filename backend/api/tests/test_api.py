@@ -5,10 +5,21 @@ from api.models import Problem
 
 
 class RecordAPIViewTestCase(APITestCase):
+    def setUp(self):
+        # 必要なテストデータをセットアップする
+        problem = Problem.objects.create(
+            problem_name="Test Problem",
+            language="python",
+            length="short",
+            words=["word1", "word2"],
+            tab_counts=[1, 2]
+        )
+        self.problem_id = problem.id
+
     def test_create_record_success(self):
         url = reverse("api:record")
 
-        data = {"correct": 1, "miss": 0, "time": 1}
+        data = {"problem": self.problem_id, "correct": 1, "miss": 0, "time": 1}
 
         response = self.client.post(url, data, format="json")
 
